@@ -7,7 +7,7 @@ import { usePostsQuery } from '../generated/graphql';
 import { createUrqlClient } from '../utils/createUrqlClient';
 
 const Index = () => {
-    const [variables, setVariables] = useState({ limit: 33, cursor: null as string | null });
+    const [variables, setVariables] = useState({ limit: 15, cursor: null as string | null });
     const [{ data, fetching }] = usePostsQuery({
         variables,
     });
@@ -31,6 +31,7 @@ const Index = () => {
                     {data!.posts.posts.map((p) => (
                         <Box key={p.id} p={5} shadow="md" borderWidth="1px">
                             <Heading fontSize="xl">{p.title}</Heading>
+                            <Text>Created by {p.creator.username}</Text>
                             <Text mt={4}>{p.textSnippet}</Text>
                         </Box>
                     ))}
