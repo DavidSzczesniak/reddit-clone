@@ -12,22 +12,30 @@ export const UpdootSection: React.FC<UpdootSectionProps> = ({ post }) => {
         <Flex mr={4} alignItems="center" justifyContent="center" direction="column">
             <IconButton
                 onClick={() => {
+                    if (post.voteStatus === 1) {
+                        return;
+                    }
                     vote({
                         postId: post.id,
                         value: 1,
                     });
                 }}
+                variantColor={post.voteStatus === 1 ? 'teal' : undefined}
                 icon="chevron-up"
                 aria-label="Upvote post"
             />
             {post.points}
             <IconButton
                 onClick={() => {
+                    if (post.voteStatus === -1) {
+                        return;
+                    }
                     vote({
                         postId: post.id,
                         value: -1,
                     });
                 }}
+                variantColor={post.voteStatus === -1 ? 'red' : undefined}
                 icon="chevron-down"
                 aria-label="Downvote post"
             />
