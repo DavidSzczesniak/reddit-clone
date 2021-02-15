@@ -39,12 +39,8 @@ export const EditPost = ({}) => {
             <Formik
                 initialValues={{ title: data.post.title, text: data.post.text }}
                 onSubmit={async (values) => {
-                    // const { error } = await createPost({ input: values });
-                    // if (!error) {
-                    //     router.push('/');
-                    // }
                     await updatePost({ id: intId, ...values });
-                    router.push('/');
+                    router.back();
                 }}>
                 {({ isSubmitting }) => (
                     <Form>
