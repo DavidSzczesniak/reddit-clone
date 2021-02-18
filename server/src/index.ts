@@ -15,6 +15,8 @@ import { PostResolver } from './resolvers/post';
 import { UserResolver } from './resolvers/user';
 import path from 'path';
 import { Updoot } from './entities/Updoot';
+import { createUserLoader } from './utils/createUserLoader';
+import { createUpdootLoader } from './utils/createUpdootLoader';
 
 const main = async () => {
     const conn = await createConnection({
@@ -64,7 +66,13 @@ const main = async () => {
             validate: false,
         }),
         // available to all resolvers
-        context: ({ req, res }) => ({ req, res, redis }),
+        context: ({ req, res }) => ({
+            req,
+            res,
+            redis,
+            userLoader: createUserLoader(),
+            updoot: createUpdootLoader(),
+        }),
     });
 
     apolloServer.applyMiddleware({
